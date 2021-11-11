@@ -4,13 +4,14 @@
 import os
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
     """A class for Serializing and Deserializing JSON files"""
     __file_path = 'file.json'
     __objects = {}
-    allclasses = {"BaseModel": BaseModel}
+    allclasses = {"BaseModel": BaseModel, "User": User}
 
     def __init__(self):
         """Default initializing"""
@@ -19,6 +20,10 @@ class FileStorage:
     def all(self):
         """Returns a dictionary with all the objects of the program"""
         return self.__objects
+
+    def path(self):
+        """Returns the path of the JSON file"""
+        return self.__file_path
 
     def new(self, obj):
         """Creates a new object for the program, or updates an older object"""
@@ -55,7 +60,7 @@ class FileStorage:
                         -> ex = User(**kwargs)
                         -> ...etc
                 """
-                self.__objects[k] = self.__allclasses[v['__class__']](**v)
+                self.__objects[k] = self.allclasses[v['__class__']](**v)
         except FileNotFoundError:
             pass
         except EOFError:
