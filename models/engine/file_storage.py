@@ -5,13 +5,19 @@ import os
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
     """A class for Serializing and Deserializing JSON files"""
     __file_path = 'file.json'
     __objects = {}
-    allclasses = {"BaseModel": BaseModel, "User": User}
+    allclasses = {"BaseModel": BaseModel, "User": User, "State": State,
+        "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
 
     def __init__(self):
         """Default initializing"""
