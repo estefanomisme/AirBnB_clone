@@ -12,7 +12,7 @@ dictclass = storage.allclasses
 
 
 def no_quotes(string):
-    """deletes the uotes in a string"""
+    """deletes the quotes in a string"""
     if (string[0] == '\"' or string[0] == '\''):
         return string[1:-1]
     else:
