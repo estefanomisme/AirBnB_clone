@@ -36,7 +36,7 @@ class BaseModel:
     def __str__(self):
         """Returns a string representation of all the atributes of an object"""
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id,
-                self.__dict__)
+                                     self.__dict__)
 
     def save(self):
         """Records the last changes made to the object"""

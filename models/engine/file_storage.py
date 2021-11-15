@@ -17,7 +17,8 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
     allclasses = {"BaseModel": BaseModel, "User": User, "State": State,
-        "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
+                  "City": City, "Amenity": Amenity, "Place": Place,
+                  "Review": Review}
 
     def __init__(self):
         """Default initializing"""
@@ -34,7 +35,7 @@ class FileStorage:
     def new(self, obj):
         """Creates a new object for the program, or updates an older object"""
         obj_key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[obj_key] = obj   
+        self.__objects[obj_key] = obj
 
     def save(self):
         """Serialization:

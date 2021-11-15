@@ -1,15 +1,37 @@
 #!/usr/bin/python3
-import cmd, sys
+import cmd
+import sys
+import re
+import json
 from models.engine.file_storage import FileStorage
 
 dictclass = FileStorage.allclasses
 
 
 def no_quotes(string):
+    """deletes the uotes in a string"""
     if (string[0] == '\"' or string[0] == '\''):
         return string[1:-1]
     else:
         return string
+
+
+def is_integer(string):
+    """checks if a string cotains an integer format"""
+    if string[0] == ('-', '+'):
+        return string[1:].isdigit()
+    else:
+        return string.isdigit()
+
+
+def is_float(string):
+    """checks if a string cotains an float format"""
+    try:
+        float(string)
+        return True
+    except ValueError:
+        return False
+
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
@@ -97,8 +119,8 @@ class HBNBCommand(cmd.Cmd):
         """Updates an instance based on the class name and id by adding
         or updating attribute
         """
-        args = line.split()
         allobjs = FileStorage()
+        args = line.split()
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in dictclass.keys():
@@ -122,11 +144,56 @@ class HBNBCommand(cmd.Cmd):
                     t = type(getattr(objU, args[2]))
                     setattr(objU, args[2], t(args[3]))
                 else:
-                    setattr(objU, args[2], args[3])
+                    if is_integer(args[3]):
+                        setattr(objU, args[2], int(args[3]))
+                    elif is_float(args[3]):
+                        setattr(objU, args[2], float(args[3]))
+                    else:
+                        setattr(objU, args[2], args[3])
                 objU.save()
             else:
                 print("** this attribute can't be updated **")
 
+    def dict_update(self, line, *args, **kwargs):
+        """Same of do_update, but from a dictionary
+        """
+        lines = ""
+        for k, w in kwargs.items():
+            lines = "update {} {} {}".format(line, str(k), str(w))
+            self.onecmd(lines)
+
+    def default(self, line):
+        """Checks a new structure of commands: <class>.<command>(<arguments>)
+        """
+        m = re.search('[^\(\)\.\s]+\.[^\(\)\.\s]+\([^\(\)]*\)', line)
+        if m is not None:
+            found = re.findall('[^\(\)]*', line)
+            clcmd = found[0].split('.')
+            argcmd = clcmd[1]
+            if hasattr(self, 'do_' + argcmd):
+                argclass = clcmd[0]
+                linearg = found[2]
+                rep = linearg.replace("'", "\"")
+                id_dict = re.findall('[^\{\}]*', rep)
+                try:
+                    dictarg = "{" + id_dict[2] + "}"
+                    dictarg = json.loads(dictarg)
+                    classid = id_dict[0].replace("\"", "").replace(",", "")
+                    argclass += " {}".format(classid)
+                    if argcmd == "update":
+                        self.dict_update(argclass, **dictarg)
+                except IndexError:
+                    itemstr = linearg.split(", ")
+                    args = ""
+                    for i in range(len(itemstr)):
+                        if i != 2:
+                            args += itemstr[i].replace("\"", "") + " "
+                        else:
+                            args += itemstr[i] + " "
+                    newl = "{} {} {}".format(argcmd, argclass, args)
+                    self.onecmd(newl)
+                except json.decoder.JSONDecodeError:
+                    print("** Invalid format **")
 
     def do_EOF(self, line):
         """EOF command to exit the program
@@ -137,6 +204,7 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program
         """
         sys.exit(0)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
