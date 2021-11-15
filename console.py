@@ -99,22 +99,21 @@ class HBNBCommand(cmd.Cmd):
         """Deletes an instance based on the class name and id
         """
         args = line.split()
-        allobjs = FileStorage()
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in dictclass.keys():
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(args[0], args[1]) not in allobjs.all().keys():
+        elif "{}.{}".format(args[0], args[1]) not in storage.all().keys():
             print("** no instance found **")
         else:
-            obj = allobjs.all()["{}.{}".format(args[0], args[1])]
+            obj = storage.all()["{}.{}".format(args[0], args[1])]
             del(obj)
             """deletes the instance"""
-            del allobjs.all()["{}.{}".format(args[0], args[1])]
+            del storage.all()["{}.{}".format(args[0], args[1])]
             """deletes the item in the main dictionary"""
-            allobjs.save()
+            storage.save()
 
     def do_update(self, line):
         """Updates an instance based on the class name and id by adding
