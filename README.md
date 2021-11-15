@@ -1,7 +1,7 @@
 # AirBnB clone - The console
 
 <p align="center">
-  <img src="https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/6/815046647d23428a14ca.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOU5BHMTQX4%2F20211115%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211115T043341Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=7069e843925288019d4454ce8598fc429f0e32d1d9049843f27b6ad81ce570a0">
+  <img src="https://user-images.githubusercontent.com/68792144/141602345-7b71c4ea-a4dd-42d9-b706-7fc2c7b85ca5.png">
 </p>
 
 ## Description
