@@ -158,9 +158,24 @@ class HBNBCommand(cmd.Cmd):
         """Same of do_update, but from a dictionary
         """
         lines = ""
-        for k, w in kwargs.items():
-            lines = "update {} {} {}".format(line, str(k), str(w))
-            self.onecmd(lines)
+        allobjs = FileStorage()
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in dictclass.keys():
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(args[0], args[1]) not in allobjs.all().keys():
+            print("** no instance found **")
+        elif len(args) == 2:
+            print("** attribute name missing **")
+        elif len(args) == 3:
+            print("** value missing **")
+        else:
+            for k, w in kwargs.items():
+                lines = "update {} {} {}".format(line, str(k), str(w))
+                self.onecmd(lines)
 
     def default(self, line):
         """Checks a new structure of commands: <class>.<command>(<arguments>)
