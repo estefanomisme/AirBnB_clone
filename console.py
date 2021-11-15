@@ -175,6 +175,29 @@ class HBNBCommand(cmd.Cmd):
                 lines = "update {} {} {}".format(line, str(k), str(w))
                 self.onecmd(lines)
 
+    def do_count(self, line):
+        """Prints the number of instances of a class, or all instances
+        """
+        args = line.split()
+        listobjs = []
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in dictclass.keys():
+            if args[0] == "all":
+                n = 0
+                for key in storage.all().keys():
+                    n = n + 1
+                print(str(n))
+            else:
+                print("** class doesn't exist **")
+        else:
+            n = 0
+            for key in storage.all().keys():
+                clid = key.split('.')
+                if clid[0] == args[0]:
+                    n = n + 1
+            print(str(n))
+
     def default(self, line):
         """Checks a new structure of commands: <class>.<command>(<arguments>)
         """
