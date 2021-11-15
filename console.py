@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""The HBNB Console"""
+
 import cmd
 import sys
 import re
