@@ -64,17 +64,16 @@ class HBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance of a class
         """
         args = line.split()
-        allobjs = FileStorage()
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in dictclass.keys():
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(args[0], args[1]) not in allobjs.all().keys():
+        elif "{}.{}".format(args[0], args[1]) not in storage.all().keys():
             print("** no instance found **")
         else:
-            obj = allobjs.all()["{}.{}".format(args[0], args[1])]
+            obj = storage.all()["{}.{}".format(args[0], args[1])]
             print(obj)
 
     def do_all(self, line):
@@ -82,16 +81,15 @@ class HBNBCommand(cmd.Cmd):
         not on the class name
         """
         args = line.split()
-        allobjs = FileStorage()
         listobjs = []
         if len(args) == 0:
-            for v in allobjs.all().values():
+            for v in storage.all().values():
                 listobjs.append(str(v))
             print(listobjs)
         elif args[0] not in dictclass.keys():
             print("** class doesn't exist **")
         else:
-            for k, v in allobjs.all().items():
+            for k, v in storage.all().items():
                 clid = k.split('.')
                 if clid[0] == args[0]:
                     listobjs.append(str(v))
@@ -101,28 +99,26 @@ class HBNBCommand(cmd.Cmd):
         """Deletes an instance based on the class name and id
         """
         args = line.split()
-        allobjs = FileStorage()
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in dictclass.keys():
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(args[0], args[1]) not in allobjs.all().keys():
+        elif "{}.{}".format(args[0], args[1]) not in storage.all().keys():
             print("** no instance found **")
         else:
-            obj = allobjs.all()["{}.{}".format(args[0], args[1])]
+            obj = storage.all()["{}.{}".format(args[0], args[1])]
             del(obj)
             """deletes the instance"""
-            del allobjs.all()["{}.{}".format(args[0], args[1])]
+            del storage.all()["{}.{}".format(args[0], args[1])]
             """deletes the item in the main dictionary"""
-            allobjs.save()
+            storage.save()
 
     def do_update(self, line):
         """Updates an instance based on the class name and id by adding
         or updating attribute
         """
-        allobjs = FileStorage()
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -130,14 +126,14 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(args[0], args[1]) not in allobjs.all().keys():
+        elif "{}.{}".format(args[0], args[1]) not in storage.all().keys():
             print("** no instance found **")
         elif len(args) == 2:
             print("** attribute name missing **")
         elif len(args) == 3:
             print("** value missing **")
         else:
-            objU = allobjs.all()["{}.{}".format(args[0], args[1])]
+            objU = storage.all()["{}.{}".format(args[0], args[1])]
             args[3] = no_quotes(args[3])
             q1 = (args[2] != 'id')
             q2 = (args[2] != 'created_at')
@@ -161,7 +157,6 @@ class HBNBCommand(cmd.Cmd):
         """Same of do_update, but from a dictionary
         """
         lines = ""
-        allobjs = FileStorage()
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -169,7 +164,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(args[0], args[1]) not in allobjs.all().keys():
+        elif "{}.{}".format(args[0], args[1]) not in storage.all().keys():
             print("** no instance found **")
         elif len(args) == 2:
             print("** attribute name missing **")
