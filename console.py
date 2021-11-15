@@ -64,17 +64,16 @@ class HBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance of a class
         """
         args = line.split()
-        allobjs = FileStorage()
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in dictclass.keys():
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(args[0], args[1]) not in allobjs.all().keys():
+        elif "{}.{}".format(args[0], args[1]) not in storage.all().keys():
             print("** no instance found **")
         else:
-            obj = allobjs.all()["{}.{}".format(args[0], args[1])]
+            obj = storage.all()["{}.{}".format(args[0], args[1])]
             print(obj)
 
     def do_all(self, line):
