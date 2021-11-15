@@ -81,16 +81,15 @@ class HBNBCommand(cmd.Cmd):
         not on the class name
         """
         args = line.split()
-        allobjs = FileStorage()
         listobjs = []
         if len(args) == 0:
-            for v in allobjs.all().values():
+            for v in storage.all().values():
                 listobjs.append(str(v))
             print(listobjs)
         elif args[0] not in dictclass.keys():
             print("** class doesn't exist **")
         else:
-            for k, v in allobjs.all().items():
+            for k, v in storage.all().items():
                 clid = k.split('.')
                 if clid[0] == args[0]:
                     listobjs.append(str(v))
