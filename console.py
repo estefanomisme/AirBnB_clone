@@ -182,6 +182,8 @@ class HBNBCommand(cmd.Cmd):
                     argclass += " {}".format(classid)
                     if argcmd == "update":
                         self.dict_update(argclass, **dictarg)
+                    else:
+                        self.stdout.write('*** Unknown syntax: %s\n'%line)
                 except IndexError:
                     itemstr = linearg.split(", ")
                     args = ""
@@ -194,6 +196,10 @@ class HBNBCommand(cmd.Cmd):
                     self.onecmd(newl)
                 except json.decoder.JSONDecodeError:
                     print("** Invalid format **")
+            else:
+                self.stdout.write('*** Unknown syntax: %s\n'%line)
+        else:
+            self.stdout.write('*** Unknown syntax: %s\n'%line)
 
     def do_EOF(self, line):
         """EOF command to exit the program
