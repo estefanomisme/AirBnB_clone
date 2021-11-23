@@ -6,6 +6,7 @@ footer {
 	border-top: 1px solid;
 	border-top-color: #CCCCCC;
 	background-color: white;
+	z-index: 500;
 }
 footer div {
 	position: absolute;
