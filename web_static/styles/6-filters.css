@@ -1,14 +1,3 @@
-.container
-{
-	max-width: 1000px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 100px;
-	margin-bottom: 60px;
-}
-
 .filters
 {
 	border: 1px solid;
@@ -39,7 +28,7 @@ button:hover
 	opacity: 0.9;
 }
 
-.locations, .amenities
+.locations, .filters .amenities
 {
 	height: 100%;
 	width: 25%;
@@ -56,19 +45,19 @@ button:hover
 	border-right-color: #DDDDDD;
 }
 
-.amenities
+.filters .amenities
 {
 	left: 25%;
 }
 
-.locations h3, .amenities h3
+.locations h3, .filters .amenities h3
 {
 	font-weight: 600;
 	margin: 0 0 0 0;
 	padding-top: 15px;
 }
 
-.locations h4, .amenities h4
+.locations h4, .filters .amenities h4
 {
 	font-weight: 400;
 	font-size: 14px;

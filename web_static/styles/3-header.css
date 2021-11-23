@@ -8,3 +8,9 @@ header {
 	background-color: white;
 	z-index: 500;
 }
+
+header .img
+{	
+	background: url("../images/logo.png") no-repeat;
+	height: 100%;
+}
